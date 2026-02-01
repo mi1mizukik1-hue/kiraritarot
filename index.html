@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>かんたんタロット</title>
+<style>
+body{
+  font-family: sans-serif;
+  text-align:center;
+  background:#fff7fb;
+}
+input{
+  width:80%;
+  padding:10px;
+  font-size:16px;
+}
+button{
+  margin-top:10px;
+  padding:12px 20px;
+  font-size:16px;
+  border:none;
+  background:#ff7bb0;
+  color:white;
+  border-radius:8px;
+}
+img{
+  margin-top:15px;
+  width:200px;
+  border-radius:12px;
+}
+#result{
+  margin-top:12px;
+  font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>質問を入力してね🔮</h2>
+<input id="question" placeholder="例：あの人の気持ちは？">
+<br>
+<button onclick="draw()">カードを引く</button>
+
+<div id="result"></div>
+<img id="cardImg">
+
+<script>
+const cards = [
+  {name:"愚者", img:"https://via.placeholder.com/300x500?text=The+Fool"},
+  {name:"魔術師", img:"https://via.placeholder.com/300x500?text=Magician"},
+  {name:"女教皇", img:"https://via.placeholder.com/300x500?text=High+Priestess"},
+  {name:"女帝", img:"https://via.placeholder.com/300x500?text=Empress"},
+  {name:"恋人", img:"https://via.placeholder.com/300x500?text=Lovers"},
+  {name:"運命の輪", img:"https://via.placeholder.com/300x500?text=Wheel+of+Fortune"},
+  {name:"太陽", img:"https://via.placeholder.com/300x500?text=Sun"},
+  {name:"世界", img:"https://via.placeholder.com/300x500?text=World"}
+];
+
+function draw(){
+  const q = document.getElementById("question").value;
+  if(q === ""){
+    alert("質問を入れてね🔮");
+    return;
+  }
+
+  const today = new Date().toDateString();
+  const key = "tarot_" + today + "_" + q;
+
+  let saved = localStorage.getItem(key);
+
+  if(!saved){
+    const card = cards[Math.floor(Math.random()*cards.length)];
+    const reverse = Math.random() < 0.5 ? "正位置" : "逆位置";
+
+    saved = JSON.stringify({card:card, reverse:reverse});
+    localStorage.setItem(key, saved);
+  }
+
+  const data = JSON.parse(saved);
+
+  document.getElementById("result").innerHTML =
+    "あなたの質問：<br><b>"+q+"</b><br><br>" +
+    "引いたカードは…<br><b>"+data.card.name+"（"+data.reverse+"）</b>✨";
+
+  const img = document.getElementById("cardImg");
+  img.src = data.card.img;
+
+  if(data.reverse === "逆位置"){
+    img.style.transform = "rotate(180deg)";
+  }else{
+    img.style.transform = "rotate(0deg)";
+  }
+}
+</script>
+
+</body>
+</html>
