@@ -47,14 +47,14 @@ img{
 
 <script>
 const cards = [
- {name:"愚者", img:"cards/fool.png"},
- {name:"魔術師", img:"cards/magician.png"},
- {name:"女教皇", img:"cards/priestess.png"},
- {name:"女帝", img:"cards/empress.png"},
- {name:"恋人", img:"cards/lovers.png"},
- {name:"運命の輪", img:"cards/wheel.png"},
- {name:"太陽", img:"cards/sun.png"},
- {name:"世界", img:"cards/world.png"}
+ {name:"愚者", img:"cards/fool.png", text:"新しい始まり。直感を信じてOK。"},
+ {name:"魔術師", img:"cards/magician.png", text:"願いを叶える力がある。行動が鍵。"},
+ {name:"女教皇", img:"cards/priestess.png", text:"答えは心の中に。焦らなくていい。"},
+ {name:"女帝", img:"cards/empress.png", text:"愛され運UP。魅力が高まる時。"},
+ {name:"恋人", img:"cards/lovers.png", text:"恋愛運最高潮。選択が未来を決める。"},
+ {name:"運命の輪", img:"cards/wheel.png", text:"運命が動く日。チャンス到来。"},
+ {name:"太陽", img:"cards/sun.png", text:"大成功のサイン。自信持ってOK。"},
+ {name:"世界", img:"cards/world.png", text:"願いが叶う完成形。最高の結果。"}
 ];
 
 function draw(){
@@ -81,7 +81,7 @@ function draw(){
 
   document.getElementById("result").innerHTML =
     "あなたの質問：<br><b>"+q+"</b><br><br>" +
-    "引いたカードは…<br><b>"+data.card.name+"（"+data.reverse+"）</b>✨";
+    "引いたカードは…<br><b>"+data.card.name+"（"+data.reverse+"）</b>✨";+ "<br><br>" + data.card.text;
 
   const img = document.getElementById("cardImg");
   img.src = data.card.img;
